@@ -111,18 +111,18 @@ function(caffe_select_nvcc_arch_flags out_variable)
   foreach(__arch ${__cuda_arch_bin})
     if(__arch MATCHES "([0-9]+)\\(([0-9]+)\\)")
       # User explicitly specified PTX for the concrete BIN
-      list(APPEND __nvcc_flags -gencode arch=compute_${CMAKE_MATCH_2},code=sm_${CMAKE_MATCH_1})
+      list(APPEND __nvcc_flags -D_FORCE_INLINES -gencode arch=compute_${CMAKE_MATCH_2},code=sm_${CMAKE_MATCH_1})
       list(APPEND __nvcc_archs_readable sm_${CMAKE_MATCH_1})
     else()
       # User didn't explicitly specify PTX for the concrete BIN, we assume PTX=BIN
-      list(APPEND __nvcc_flags -gencode arch=compute_${__arch},code=sm_${__arch})
+      list(APPEND __nvcc_flags -D_FORCE_INLINES -gencode arch=compute_${__arch},code=sm_${__arch})
       list(APPEND __nvcc_archs_readable sm_${__arch})
     endif()
   endforeach()
 
   # Tell NVCC to add PTX intermediate code for the specified architectures
   foreach(__arch ${__cuda_arch_ptx})
-    list(APPEND __nvcc_flags -gencode arch=compute_${__arch},code=compute_${__arch})
+    list(APPEND __nvcc_flags -D_FORCE_INLINES -gencode arch=compute_${__arch},code=compute_${__arch})
     list(APPEND __nvcc_archs_readable compute_${__arch})
   endforeach()
 

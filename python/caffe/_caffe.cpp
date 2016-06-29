@@ -88,7 +88,7 @@ void CheckContiguousArray(PyArrayObject* arr, string name,
 
 // Net constructor for passing phase as int
 shared_ptr<Net<Dtype> > Net_Init(
-    string param_file, int phase) {
+    char* param_file, int phase) {
   CheckFile(param_file);
 
   shared_ptr<Net<Dtype> > net(new Net<Dtype>(param_file,
@@ -98,7 +98,7 @@ shared_ptr<Net<Dtype> > Net_Init(
 
 // Net construct-and-load convenience constructor
 shared_ptr<Net<Dtype> > Net_Init_Load(
-    string param_file, string pretrained_param_file, int phase) {
+    char* param_file, char* pretrained_param_file, int phase) {
   CheckFile(param_file);
   CheckFile(pretrained_param_file);
 
