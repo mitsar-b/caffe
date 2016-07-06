@@ -80,7 +80,7 @@ void SelectLayer<Dtype>::Backward_cpu(const vector<Blob<Dtype>*>& top,
               caffe_set(dim, Dtype(0),
                   bottom[i]->mutable_cpu_diff() + data_offset); //set diff to 0
             } else {
-                caffe_copy(dim, top[i]->mutable_cpu_diff() + data_offset,
+                caffe_copy(dim, top[0]->mutable_cpu_diff() + data_offset,
                     bottom[i]->mutable_cpu_diff() + data_offset); //propagate diff
             }
           }
